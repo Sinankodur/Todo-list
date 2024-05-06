@@ -33,25 +33,70 @@
       <div class="screen">
         <form action="{% url "add-task" %}" method="POST">
           {% csrf_token %}
-          <input type="text" class="form-control me-2" required name="task" value="{{ task }}" placeholder="Enter your task here 😊">
+          <input type="text" class="form-control-lg me-2" required name="task" placeholder="Enter your task here 😊">
           <button type="submit" class="btn btn-outline-dark"><i class='bx bxs-add-to-queue'></i></button>
         </form>
+
       </div>
-      <div>
+      <div class='task'>
         {% if tasks %}
-        {% for task in tasks %}
-          {{ task.name }}
-          {{ task.created_at }}
-          <br>
-          <button class="btn btn-danger" onclick="location.href='{% url "confirm-delete" task.id %}' ">Delete</button>
-        {% endfor %}
+        <div class="table-responsive rounded-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            {% for task in tasks %}
+              <tbody>
+                <tr>
+                  <td class="fs-5 fw-light">
+                    {% if task.status == 'completed' %}
+                    <del>{{ task.name }}</del>
+                    {% else %}
+                    {{ task.name }}
+                    {% endif %}
+                  </td>
+                  <td>{{ task.created_at }}</td>
+            <!-- STATUS updation form   -->
+                <form action="{% url 'update-task' task.id %}" method="post">
+                  {% csrf_token %}
+                  <td id="status{{ task.id }}">
+                    <select class="form-select" name="status">
+                      <option value="pending" {% if task.status == "pending" %}selected{% endif %}>Pending</option>
+                      <option value="completed" {% if task.status == "completed" %}selected{% endif %}>Completed</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-success" type="submit">Update</button>
+                  </td>
+                </form>          
+            <!-- END STATUS FORM -->
+                  <td>
+                    <button class="btn btn-outline-info" onclick="location.href='{% url "edit-page" task.id %}' ">Edit</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-danger" onclick="location.href='{% url "confirm-delete" task.id %}' ">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            {% endfor %}
+          </table>
+        </div>
+        {% else %}
+        <h5 class="text-center">All of your tasks are completed 🤗</h5>
         {% endif %}
         
       </div>
       {% endblock content %}
   </div>
         
-
+    <script src="{% static "js/script.js" %}"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

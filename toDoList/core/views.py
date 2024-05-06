@@ -38,7 +38,6 @@ def sign_in(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', reverse('home')))
-
     
     else:
         form = LoginForm()
@@ -67,3 +66,21 @@ def confirm_delete(request,pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
     return redirect('/')
+
+def edit_page(request,pk):
+    task = Task.objects.get(pk=pk)
+    return render(request, 'core/editTask.html',{'task':task})
+
+def edit_task(request,pk):
+    if request.method == 'POST':
+        task = Task.objects.get(pk=pk)
+        task.name = request.POST.get('name')
+        task.save()
+        return redirect('home')
+    
+def update_task_status(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    new_status = request.POST.get('status')
+    task.status = new_status
+    task.save()
+    return redirect('home')

@@ -3,9 +3,13 @@
 {% block title %}Sign Up{% endblock title %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2>Create an Account</h2>
-  <div class="col-6">
+<button onclick="location.href = '{% url "home" %}' " class='text-dark btn btn-light pe-2'>
+  <i class='bx bxs-home'></i>
+  Home
+</button>
+
+<div class="sign-up">
+    <h2>Create an Account</h2>
       <form action="{% url "sign-up" %}" method="POST">
           {% csrf_token %}
           {{ form.username }}
@@ -34,10 +38,9 @@
 
           <br>
           <div class="text-center">
-            <button class="btn btn-dark mb-2" type="submit">Submit</button>
+            <button class="btn btn-dark mb-2" type="submit">Sign up</button>
             <p>Already have an account? <br><a href="{% url "sign-in" %}">Sign in</a></p>
           </div>
       </form>
-  </div>
 </div>
 {% endblock content %}

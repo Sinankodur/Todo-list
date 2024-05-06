@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/sign-in/'
 LOGOUT_REDIRECT_URL = '/'
 
 

@@ -1,12 +1,58 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .screen{
-    margin: 3rem auto;
-    width: 60%;
-    max-width: 30rem;
+    margin: 2rem auto;
+    width: 70%;
+    max-width: 60rem;
     background-color: aliceblue;
     padding: 1rem;
+    border-radius: 1rem;
 }
 
 .screen form{
     display: flex;
     justify-content: center;
+    align-items: baseline;
+}
+
+.screen form input{
+    max-width: 43rem;
+    width: 43rem;
+    min-width: 8rem;
+}
+
+.task{
+    margin: .5rem auto;
+    width: 70%;
+    max-width: 60rem;
+    background: beige;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.confirm-delete{
+    margin: 6rem auto;
+    width: 30rem;
+    padding: 2rem;
+    background-color: beige;
+    border-radius: 1rem;
+}
+
+.edit-task{
+    margin: 6rem auto;
+    background-color: beige;
+    padding: 1rem 1rem 2rem;
+    border-radius: 1rem;
+}
+
+.sign-in, .sign-up{
+    background-color: beige;
+    padding: 2rem 2rem 1rem;
+    margin: 4.5rem auto;
+    width: 35rem;
+    border-radius: 1rem;
 }

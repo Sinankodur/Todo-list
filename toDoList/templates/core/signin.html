@@ -9,39 +9,38 @@
   Home
 </button>
 
-<div class="col-6 mt-5">
+<div class="sign-in">
   <h2>Welcome back!</h2>
   <form action="{% url "sign-in" %}" method="POST">
-      {% csrf_token %}
-      {{ form.username }}
-      {{ form.password }}
+    {% csrf_token %}
+    {{ form.username }}
+    {{ form.password }}
 
-      <div class="mt-3">
-        {% if form.errors %}
-          <p class="text-danger rounded p-2 bg-danger-subtle lh-sm" 
-            style="font-size: .8rem ;">
-              
-            {% for field in form %}
-              {% for error in field.errors %}
+    <div class="mt-3">
+      {% if form.errors %}
+        <p class="text-danger rounded p-2 bg-danger-subtle lh-sm" 
+          style="font-size: .8rem ;"
+        >
+          {% for field in form %}
+            {% for error in field.errors %}
               <span>{{ error|escape }}</span>
               <br>
-              {% endfor %}
             {% endfor %}
+          {% endfor %}
 
-              {% for error in form.non_field_errors %}
-                <span>{{ error|escape }}</span>
-              {% endfor %}
-          </p>
-        {% endif %}
-     </div>
-     <div class="text-center">
-      <button class="btn btn-dark mb-2" type="submit">Submit</button><br>
+          {% for error in form.non_field_errors %}
+            <span>{{ error|escape }}</span>
+          {% endfor %}
+        </p>
+      {% endif %}
+    </div>
+    <div class="text-center">
+      <button class="btn btn-dark mb-2" type="submit">Sign in</button><br>
       <p>
         Don't have an account? <br>
         <a href="{% url "sign-up" %}">Create an account</a>
       </p>
-     </div>
-      
+    </div>
   </form>
 </div>
 {% endblock content %}
