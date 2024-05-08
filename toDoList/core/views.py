@@ -43,6 +43,7 @@ def sign_in(request):
         form = LoginForm()
     return render(request, 'core/signin.html', {'form' : form})
 
+@login_required
 def sign_out(request):
     logout(request)
     return redirect('sign-in')
@@ -62,15 +63,19 @@ def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     return render(request, 'core/deleteConfirm.html', {'task': task})
 
+@login_required
 def confirm_delete(request,pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
     return redirect('/')
 
+@login_required
 def edit_page(request,pk):
     task = Task.objects.get(pk=pk)
     return render(request, 'core/editTask.html',{'task':task})
 
+
+@login_required
 def edit_task(request,pk):
     if request.method == 'POST':
         task = Task.objects.get(pk=pk)
@@ -78,6 +83,7 @@ def edit_task(request,pk):
         task.save()
         return redirect('home')
     
+@login_required
 def update_task_status(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     new_status = request.POST.get('status')
